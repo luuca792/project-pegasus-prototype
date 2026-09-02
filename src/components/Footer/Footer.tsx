@@ -1,0 +1,61 @@
+import { MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
+import logo from '../../assets/images/logo.png';
+import styles from './Footer.module.css';
+
+export function Footer() {
+  return (
+    <footer id="contact" className={styles.footer}>
+      <div className={styles.inner}>
+        <div className={styles.brandCol}>
+          <div className={styles.brand}>
+            <img src={logo} alt="NTN Gaming" className={styles.logo} />
+            <span className={styles.brandText}>
+              NTN<span className={styles.brandAccent}>GAMING</span>
+            </span>
+          </div>
+          <p className={styles.tagline}>Phòng net chuẩn esports giữa lòng Trà Vinh.</p>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.socialLink}
+          >
+            <MessageCircle size={18} />
+            Theo dõi trên Facebook
+          </a>
+        </div>
+
+        <div className={styles.infoCol}>
+          <h3 className={styles.colTitle}>Ghé thăm chúng tôi</h3>
+          <div className={styles.infoRow}>
+            <MapPin size={18} className={styles.infoIcon} />
+            <span>Số 42, Dương Quang Đông, Khóm 4, Phường Hòa Thuận, Trà Vinh</span>
+          </div>
+          <div className={styles.infoRow}>
+            <Phone size={18} className={styles.infoIcon} />
+            <a href="tel:0988585801">0988 585 801 (SĐT / Zalo)</a>
+          </div>
+          <div className={styles.infoRow}>
+            <Clock size={18} className={styles.infoIcon} />
+            <span>Mở cửa 7:00 – 23:00 mỗi ngày, kể cả lễ, Tết</span>
+          </div>
+        </div>
+
+        <div className={styles.mapCol}>
+          <h3 className={styles.colTitle}>Đặt chỗ nhanh</h3>
+          <p className={styles.mapText}>
+            Gọi hoặc nhắn Zalo để giữ máy trước, đặc biệt vào khung giờ cao điểm cuối tuần.
+          </p>
+          <a href="tel:0988585801" className={styles.callCta}>
+            <Phone size={16} />
+            Gọi ngay 0988 585 801
+          </a>
+        </div>
+      </div>
+
+      <div className={styles.bottomBar}>
+        <span>© 2026 NTN Gaming. Bản demo giao diện — dữ liệu minh họa.</span>
+      </div>
+    </footer>
+  );
+}

@@ -1,0 +1,214 @@
+.section {
+  padding: var(--space-9) var(--space-5);
+  background: var(--color-bg);
+}
+
+.inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: var(--space-7);
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary-light);
+  margin-bottom: var(--space-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.card:hover,
+.card:focus-visible {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+.card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.card p {
+  font-size: var(--font-size-sm);
+  margin-bottom: 0;
+}
+
+.cardBody {
+  width: 100%;
+}
+
+.examples {
+  color: var(--color-text-subtle);
+  margin-top: var(--space-2) !important;
+}
+
+.viewMenu {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-primary-light);
+}
+
+.iconWrap {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-50);
+  color: var(--color-primary-light);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modal */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  z-index: 100;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6);
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.closeButton:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-light);
+}
+
+.toggleRow {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  padding-right: var(--space-8);
+}
+
+.toggleButton {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.toggleButton:hover {
+  color: var(--color-text);
+}
+
+.toggleActive {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary);
+  color: var(--color-primary-light);
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px dashed var(--color-border);
+  font-size: var(--font-size-base);
+}
+
+.menuItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.menuPrice {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-primary-light);
+}
+
+.menuNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  margin: 0;
+}

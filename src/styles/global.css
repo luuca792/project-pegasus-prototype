@@ -1,0 +1,109 @@
+@import './fonts.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin: 0 0 var(--space-3) 0;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+p {
+  margin: 0 0 var(--space-3) 0;
+  color: var(--color-text-muted);
+}
+
+a {
+  color: var(--color-primary-light);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul, ol {
+  padding-left: var(--space-5);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}

@@ -1,0 +1,133 @@
+.footer {
+  background: var(--color-bg-raised);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-5) 0;
+}
+
+.inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: var(--space-7);
+  padding-bottom: var(--space-8);
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.brandText {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.brandAccent {
+  color: var(--color-primary);
+}
+
+.tagline {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-2);
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  width: fit-content;
+}
+.socialLink:hover {
+  color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+.colTitle {
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.infoRow a {
+  color: var(--color-text-muted);
+}
+.infoRow a:hover {
+  color: var(--color-primary-light);
+}
+
+.infoIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--color-primary-light);
+}
+
+.mapText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.callCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.callCta:hover {
+  background: var(--color-primary-light);
+  text-decoration: none;
+}
+
+.bottomBar {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

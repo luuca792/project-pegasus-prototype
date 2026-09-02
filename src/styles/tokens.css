@@ -1,0 +1,73 @@
+:root {
+  /* NTN Gaming brand colors — from data/logo.png (red/black shield mark) */
+  --color-primary: #e0222c;
+  --color-primary-light: #ff4b53;
+  --color-primary-dark: #a3161e;
+
+  --color-primary-50: rgba(224, 34, 44, 0.08);
+  --color-primary-100: rgba(224, 34, 44, 0.16);
+  --color-primary-600: #ff2c37;
+
+  /* Neutrals — dark esports lounge, matches venue photography */
+  --color-bg: #0b0c10;
+  --color-bg-raised: #121319;
+  --color-surface: #17181f;
+  --color-surface-alt: #1e2029;
+  --color-border: #2a2c37;
+  --color-text: #f4f5f7;
+  --color-text-muted: #a8acb9;
+  --color-text-subtle: #6f7382;
+
+  /* Accent glow (used for neon hex badges / highlight rims) */
+  --color-glow: #ff3b44;
+  --color-glow-soft: rgba(255, 59, 68, 0.35);
+
+  /* Semantic */
+  --color-success: #2ecc71;
+  --color-success-dark: #1f9d57;
+  --color-success-bg: rgba(46, 204, 113, 0.12);
+  --color-warning: #f5a623;
+  --color-warning-dark: #c9860f;
+  --color-warning-bg: rgba(245, 166, 35, 0.12);
+
+  /* Typography */
+  --font-heading: 'Barlow Condensed', 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3.5rem;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* Radius / shadow */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 32px var(--color-glow-soft);
+
+  /* Layout */
+  --header-height: 76px;
+  --content-width: 1200px;
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 1024px;
+
+  color-scheme: dark;
+}
