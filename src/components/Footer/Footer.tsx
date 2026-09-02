@@ -15,7 +15,7 @@ export function Footer() {
           </div>
           <p className={styles.tagline}>Phòng net chuẩn esports giữa lòng Trà Vinh.</p>
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/profile.php?id=61579351685897"
             target="_blank"
             rel="noreferrer"
             className={styles.socialLink}

@@ -1,7 +1,26 @@
 import { useMemo, useState } from 'react';
 import { Layers, X } from 'lucide-react';
-import { BUILDING, FLOORS, getMockPcInfo, type PcInfo, type PcRow } from './floorData';
+import { BUILDING, FLOORS, getMockPcInfo, type PcInfo, type PcRow, type Room } from './floorData';
 import styles from './FloorPlan.module.css';
+
+/** Rooms that share a `group` render as one bordered strip: a single outer
+ *  rect spanning the group's bounds, plus thin divider lines at each internal
+ *  seam, instead of each room drawing its own border. Ungrouped rooms (and
+ *  each group as a whole) keep their individual fills for kind-based styling. */
+function groupRooms(rooms: Room[]) {
+  const groups = new Map<string, Room[]>();
+  const solo: Room[] = [];
+  for (const room of rooms) {
+    if (!room.group) {
+      solo.push(room);
+      continue;
+    }
+    const members = groups.get(room.group) ?? [];
+    members.push(room);
+    groups.set(room.group, members);
+  }
+  return { groups: [...groups.values()], solo };
+}
 
 const STATUS_LABEL: Record<PcInfo['status'], string> = {
   available: 'Trống',
@@ -21,6 +40,7 @@ export function FloorPlan() {
   const [selected, setSelected] = useState<PcInfo | null>(null);
 
   const floor = useMemo(() => FLOORS.find((f) => f.id === floorId) ?? FLOORS[0], [floorId]);
+  const { groups: roomGroups, solo: soloRooms } = useMemo(() => groupRooms(floor.rooms), [floor]);
 
   return (
     <div className={styles.wrap}>
@@ -61,7 +81,57 @@ export function FloorPlan() {
             rx={2}
             className={styles.buildingOutline}
           />
-          {floor.rooms.map((room) => (
+          {roomGroups.map((members) => {
+            const x = Math.min(...members.map((r) => r.x));
+            const y = Math.min(...members.map((r) => r.y));
+            const right = Math.max(...members.map((r) => r.x + r.w));
+            const bottom = Math.max(...members.map((r) => r.y + r.h));
+            const sorted = [...members].sort((a, b) => a.x - b.x);
+            const clipId = `room-group-clip-${sorted[0].group}`;
+            return (
+              <g key={sorted[0].group}>
+                <clipPath id={clipId}>
+                  <rect x={x} y={y} width={right - x} height={bottom - y} rx={0.6} />
+                </clipPath>
+                <g clipPath={`url(#${clipId})`}>
+                  {sorted.map((room) => (
+                    <rect
+                      key={room.id}
+                      x={room.x}
+                      y={room.y}
+                      width={room.w}
+                      height={room.h}
+                      className={`${styles.roomFill} ${styles[`room-${room.kind}`]}`}
+                    />
+                  ))}
+                </g>
+                <rect
+                  x={x}
+                  y={y}
+                  width={right - x}
+                  height={bottom - y}
+                  rx={0.6}
+                  className={styles.roomGroupOutline}
+                />
+                {sorted.slice(1).map((room) => (
+                  <line
+                    key={`${room.id}-divider`}
+                    x1={room.x}
+                    y1={y}
+                    x2={room.x}
+                    y2={bottom}
+                    className={styles.roomDivider}
+                  />
+                ))}
+                {sorted.map((room) => (
+                  <foreignObject key={`${room.id}-label`} x={room.x} y={room.y} width={room.w} height={room.h}>
+                    <div className={styles.roomLabel}>{room.label}</div>
+                  </foreignObject>
+                ))}
+              </g>
+            );
+          })}
+          {soloRooms.map((room) => (
             <g key={room.id}>
               <rect
                 x={room.x}
@@ -91,7 +161,7 @@ export function FloorPlan() {
 
           {floor.pcRows.map((row) =>
             seatPositions(row).map((seat) => {
-              const info = getMockPcInfo(seat.number, seat.index);
+              const info = getMockPcInfo(seat.number);
               const isSelected = selected?.number === seat.number;
               return (
                 <g

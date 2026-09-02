@@ -20,6 +20,9 @@ export interface Room {
   y: number;
   w: number;
   h: number;
+  /** Rooms sharing a group id render as one unified bordered strip with thin
+   *  divider lines between them, instead of each getting its own border. */
+  group?: string;
 }
 
 export interface PcRow {
@@ -42,7 +45,10 @@ export interface FloorPlanData {
 }
 
 // Shared building envelope — both floors occupy the same rectangular shell.
-export const BUILDING = { w: 64, h: 24 };
+// Taller than the source sketch's proportions would strictly need, to leave
+// real breathing room above/below the PC block instead of packing it edge to
+// edge with the room strip and the outline's rounded bottom corner.
+export const BUILDING = { w: 64, h: 26 };
 
 // Floor 1's middle "column" in the source sketch is actually two rows of PCs
 // standing back-to-back against a shared center aisle — rows B and C below,
@@ -52,20 +58,24 @@ export const BUILDING = { w: 64, h: 24 };
 // it's now a tall/narrow box instead of the sketch's short/wide one.
 const STAIR_X = 58;
 const STAIR_W = 4;
-const STAIR_Y = 4;
-const STAIR_H = 18.7;
 const SEAT = 2.6;
 const GAP = 0.5;
 
-// Floor 1's content column runs between two full-height side columns: the
-// entrance on the left wall, the stairwell on the right wall. Everything else
-// (the 3-way room strip, the PC seating block) spans the same width between
-// them, so they all read as one aligned layout instead of independently sized
-// pieces floating in the middle.
+// Floor 1's PC seating block runs between two side columns: the entrance on
+// the left wall, the stairwell on the right wall. Both columns sit BELOW the
+// room strip (which spans the building's full width above them, not just the
+// content width) and match the seating block's height, not the full building
+// height — the room strip is the one thing that spans corner to corner.
 const CONTENT_X = 7;
 const CONTENT_W = 51; // STAIR_X - CONTENT_X
 const DOOR_X = 2;
 const DOOR_W = 4;
+const ROOMS_Y = 4;
+const ROOMS_H = 5.2;
+const ROOMS_X = DOOR_X; // flush with the entrance column's left edge
+const ROOMS_W = STAIR_X + STAIR_W - DOOR_X; // flush with the stairwell's right edge
+const SEATS_Y = 10.7; // top of row A — also top of the entrance/stairs columns; leaves clearance below the room strip
+const SEATS_BOTTOM = 23.4; // bottom of row D — also bottom of the entrance/stairs columns; leaves clearance above the building's rounded bottom corner
 
 export const FLOORS: FloorPlanData[] = [
   {
@@ -75,27 +85,28 @@ export const FLOORS: FloorPlanData[] = [
       // Admin/blocked/restroom were stacked vertically in the source sketch, each
       // spanning the building's full (short) width. Rotated 90°, that stack becomes
       // a single horizontal strip above the PC rows (mirroring floor 2's smoking
-      // strip). The three sections abut with no gap so their shared borders read
-      // as one unified strip with division lines, rather than three separate boxes.
-      // The strip spans the same width as the PC block below it (CONTENT_X to
-      // STAIR_X), matching the entrance column on the left and stairwell on the right.
-      { id: 'f1-admin', label: 'Quản lý', kind: 'admin', x: CONTENT_X, y: 4, w: CONTENT_W / 3, h: 5.2 },
-      { id: 'f1-blocked', label: 'Khu vực nội bộ', kind: 'blocked', x: CONTENT_X + CONTENT_W / 3, y: 4, w: CONTENT_W / 3, h: 5.2 },
-      { id: 'f1-restroom', label: 'Nhà vệ sinh', kind: 'restroom', x: CONTENT_X + (2 * CONTENT_W) / 3, y: 4, w: CONTENT_W / 3, h: 5.2 },
-      { id: 'f1-stairs', label: 'Cầu thang', kind: 'stairs', x: STAIR_X, y: STAIR_Y, w: STAIR_W, h: STAIR_H },
-      // Entrance is a full-height column on the left wall, mirroring the stairwell
-      // on the right — both span the full height of the room strip + PC block.
-      { id: 'f1-door', label: 'Lối vào', kind: 'door', x: DOOR_X, y: STAIR_Y, w: DOOR_W, h: STAIR_H },
+      // strip), running the full width between the entrance and stairwell columns
+      // below it (flush with both). All three share a `group`, so FloorPlan
+      // renders one unified bordered strip with thin dividers instead of three
+      // separately-bordered boxes.
+      { id: 'f1-admin', label: 'Quản lý', kind: 'admin', x: ROOMS_X, y: ROOMS_Y, w: ROOMS_W / 3, h: ROOMS_H, group: 'f1-rooms' },
+      { id: 'f1-blocked', label: 'Khu vực nội bộ', kind: 'blocked', x: ROOMS_X + ROOMS_W / 3, y: ROOMS_Y, w: ROOMS_W / 3, h: ROOMS_H, group: 'f1-rooms' },
+      { id: 'f1-restroom', label: 'Nhà vệ sinh', kind: 'restroom', x: ROOMS_X + (2 * ROOMS_W) / 3, y: ROOMS_Y, w: ROOMS_W / 3, h: ROOMS_H, group: 'f1-rooms' },
+      // Stairwell and entrance are columns below the room strip, matching the
+      // PC seating block's height (top of row A to bottom of row D) rather than
+      // the full building height.
+      { id: 'f1-stairs', label: 'Cầu thang', kind: 'stairs', x: STAIR_X, y: SEATS_Y, w: STAIR_W, h: SEATS_BOTTOM - SEATS_Y },
+      { id: 'f1-door', label: 'Lối vào', kind: 'door', x: DOOR_X, y: SEATS_Y, w: DOOR_W, h: SEATS_BOTTOM - SEATS_Y },
     ],
     pcRows: [
       // A-B and C-D each have a full walkway gap; B-C sit back-to-back with only
-      // a hairline seam (no walkway). Rows span the same CONTENT_X-to-STAIR_X
-      // width as the room strip above; D (fewer seats, same seat size) is
-      // right-aligned so A11/B11/C11/D-last all line up flush against the stairwell.
-      { id: 'f1-row-a', x: CONTENT_X, y: 10, count: 16, seatSize: SEAT, gap: GAP, prefix: 'A' },
-      { id: 'f1-row-b', x: CONTENT_X, y: 13.6, count: 16, seatSize: SEAT, gap: GAP, prefix: 'B' },
-      { id: 'f1-row-c', x: CONTENT_X, y: 16.5, count: 16, seatSize: SEAT, gap: GAP, prefix: 'C' },
-      { id: 'f1-row-d', x: 21.3, y: 20.1, count: 12, seatSize: SEAT, gap: GAP, prefix: 'D' },
+      // a hairline seam (no walkway). All four rows span CONTENT_X to STAIR_X,
+      // between the entrance and stairwell columns, so A16/B16/C16/D16 all line
+      // up flush against the stairwell on the right and the entrance on the left.
+      { id: 'f1-row-a', x: CONTENT_X, y: SEATS_Y, count: 16, seatSize: SEAT, gap: GAP, prefix: 'A' },
+      { id: 'f1-row-b', x: CONTENT_X, y: 14.3, count: 16, seatSize: SEAT, gap: GAP, prefix: 'B' },
+      { id: 'f1-row-c', x: CONTENT_X, y: 17.2, count: 16, seatSize: SEAT, gap: GAP, prefix: 'C' },
+      { id: 'f1-row-d', x: CONTENT_X, y: 20.8, count: 16, seatSize: SEAT, gap: GAP, prefix: 'D' },
     ],
   },
   {
@@ -106,7 +117,7 @@ export const FLOORS: FloorPlanData[] = [
       // width in the sketch. Rotated 90°, it becomes a strip spanning the full
       // (short) height along the top, above the PC rows.
       { id: 'f2-smoking', label: 'Khu vực hút thuốc', kind: 'smoking', x: 3, y: 4, w: 58, h: 7 },
-      { id: 'f2-stairs', label: 'Cầu thang', kind: 'stairs', x: STAIR_X, y: STAIR_Y, w: STAIR_W, h: STAIR_H },
+      { id: 'f2-stairs', label: 'Cầu thang', kind: 'stairs', x: STAIR_X, y: 14, w: STAIR_W, h: 8 },
       { id: 'f2-door', label: 'Cửa', kind: 'door', x: 21, y: 11, w: 3, h: 2 },
     ],
     pcRows: [
@@ -127,14 +138,49 @@ export interface PcInfo {
   monitor: string;
 }
 
-const STATUS_CYCLE: PcStatus[] = ['available', 'occupied', 'occupied', 'maintenance'];
+// All seat numbers across both floors, in a fixed order — used to build a
+// stable (not re-shuffled on every render) but scattered-looking status
+// assignment: a handful under maintenance, a chunk occupied, the rest free.
+const ALL_SEAT_NUMBERS = FLOORS.flatMap((floor) =>
+  floor.pcRows.flatMap((row) => Array.from({ length: row.count }, (_, i) => `${row.prefix}${i + 1}`)),
+);
+
+const MAINTENANCE_COUNT = 2;
+const OCCUPIED_COUNT = 10;
+
+// Simple seeded PRNG (mulberry32) so the shuffle — and therefore the mock
+// status layout — is the same on every load instead of changing on refresh.
+function seededShuffle<T>(items: T[], seed: number): T[] {
+  let state = seed;
+  const rand = () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+const shuffledSeats = seededShuffle(ALL_SEAT_NUMBERS, 1337);
+const STATUS_BY_SEAT = new Map<string, PcStatus>();
+shuffledSeats.forEach((number, i) => {
+  const status: PcStatus =
+    i < MAINTENANCE_COUNT ? 'maintenance' : i < MAINTENANCE_COUNT + OCCUPIED_COUNT ? 'occupied' : 'available';
+  STATUS_BY_SEAT.set(number, status);
+});
 
 // Placeholder spec/status generator — will be replaced by real occupancy data later.
-export function getMockPcInfo(number: string, index: number): PcInfo {
+export function getMockPcInfo(number: string): PcInfo {
   const isVip = number.startsWith('V') || number.startsWith('W');
   return {
     number,
-    status: STATUS_CYCLE[index % STATUS_CYCLE.length],
+    status: STATUS_BY_SEAT.get(number) ?? 'available',
     cpu: isVip ? 'Intel Core i7' : 'Intel Core i5',
     gpu: isVip ? 'RTX 4070' : 'RTX 3060',
     ram: isVip ? '32GB' : '16GB',

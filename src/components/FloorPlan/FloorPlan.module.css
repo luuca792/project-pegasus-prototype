@@ -101,9 +101,25 @@
 
 .room-blocked {
   fill: var(--color-surface-alt);
-  stroke: var(--color-text-subtle);
-  stroke-width: 0.18;
-  stroke-dasharray: 0.8 0.6;
+}
+
+/* Grouped rooms (e.g. floor 1's admin/internal/restroom strip): one rounded
+   outer border for the whole group, plain fills with no per-room stroke, and
+   thin divider lines at each internal seam — reads as one unified box instead
+   of several bordered boxes glued together. */
+.roomGroupOutline {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 0.15;
+}
+
+.roomFill {
+  stroke: none;
+}
+
+.roomDivider {
+  stroke: var(--color-border);
+  stroke-width: 0.15;
 }
 
 .room-door {
@@ -318,6 +334,21 @@
   border-width: 1px;
   border-style: solid;
   display: inline-block;
+}
+
+.legendDot.seat-available {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.legendDot.seat-occupied {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.legendDot.seat-maintenance {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
 }
 
 @media (max-width: 640px) {

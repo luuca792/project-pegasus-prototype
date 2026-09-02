@@ -111,26 +111,28 @@ export function Services() {
             aria-label={`Menu ${MENU_LABEL[activeMenu]}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
-              className={styles.closeButton}
-              onClick={() => setActiveMenu(null)}
-              aria-label="Đóng"
-            >
-              <X size={20} />
-            </button>
+            <div className={styles.modalHeader}>
+              <div className={styles.toggleRow}>
+                {(['food', 'drink'] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    className={`${styles.toggleButton} ${activeMenu === cat ? styles.toggleActive : ''}`}
+                    onClick={() => setActiveMenu(cat)}
+                  >
+                    {MENU_LABEL[cat]}
+                  </button>
+                ))}
+              </div>
 
-            <div className={styles.toggleRow}>
-              {(['food', 'drink'] as const).map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  className={`${styles.toggleButton} ${activeMenu === cat ? styles.toggleActive : ''}`}
-                  onClick={() => setActiveMenu(cat)}
-                >
-                  {MENU_LABEL[cat]}
-                </button>
-              ))}
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => setActiveMenu(null)}
+                aria-label="Đóng"
+              >
+                <X size={20} />
+              </button>
             </div>
 
             <ul className={styles.menuList}>
