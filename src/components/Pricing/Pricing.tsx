@@ -6,7 +6,7 @@ const ROOMS = [
     name: 'Phòng thường',
     highlight: false,
     tiers: [
-      { label: 'Khách', price: '10.000đ' },
+      { label: 'Khách', price: '13.000đ' },
       { label: 'Hội viên', price: '7.000đ' },
     ],
     perks: ['Cấu hình tiêu chuẩn', 'Màn hình phổ thông', 'Mạng cáp quang tốc độ cao'],
@@ -15,7 +15,7 @@ const ROOMS = [
     name: 'Phòng VIP',
     highlight: true,
     tiers: [
-      { label: 'Khách', price: '13.000đ' },
+      { label: 'Khách', price: '15.000đ' },
       { label: 'Hội viên', price: '10.000đ' },
     ],
     perks: ['Cấu hình mạnh', 'Màn hình cao cấp', 'Mạng cáp quang tốc độ cao'],
