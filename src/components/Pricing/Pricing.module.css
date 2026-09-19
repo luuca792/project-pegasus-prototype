@@ -1,5 +1,5 @@
 .section {
-  padding: var(--space-9) var(--space-5);
+  padding: var(--space-8) var(--space-5);
   background: var(--color-bg-raised);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
@@ -80,17 +80,42 @@
   color: var(--color-text-muted);
 }
 
+.tiers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-5) 0;
+}
+
+.tierRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tierRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tierLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
 .priceRow {
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-bottom: var(--space-5);
 }
 
 .price {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   color: var(--color-text);
 }
 
@@ -102,7 +127,7 @@
 .perks {
   list-style: none;
   padding: 0;
-  margin: 0 0 var(--space-6) 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -121,38 +146,6 @@
   flex-shrink: 0;
   margin-top: 2px;
   color: var(--color-primary-light);
-}
-
-.ctaPrimary, .ctaSecondary {
-  text-align: center;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: var(--font-size-sm);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-}
-
-.ctaPrimary {
-  background: var(--color-primary);
-  color: white;
-}
-.ctaPrimary:hover {
-  background: var(--color-primary-light);
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
-.ctaSecondary {
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-.ctaSecondary:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
-  text-decoration: none;
 }
 
 @media (max-width: 900px) {

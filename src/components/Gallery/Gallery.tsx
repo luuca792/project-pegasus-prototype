@@ -3,14 +3,15 @@ import img1 from '../../assets/images/store-1.jpg';
 import img2 from '../../assets/images/store-2.jpg';
 import img3 from '../../assets/images/store-3.jpg';
 import img4 from '../../assets/images/store-4.jpg';
-import { FloorPlan } from '../FloorPlan/FloorPlan';
 import styles from './Gallery.module.css';
 
+// Floor plan / seat picker temporarily hidden — see FloorPlan component (kept for later re-enable).
+
 const PHOTOS = [
-  { src: img1, alt: 'Dàn máy hàng dài với màn hình cờ đỏ sao vàng', caption: 'Dàn PC hàng dài, tai nghe treo sẵn' },
-  { src: img2, alt: 'Toàn cảnh khu vực chơi game', caption: 'Không gian rộng, ánh đèn neon' },
-  { src: img4, alt: 'Góc phòng máy với ánh đèn tím', caption: 'Setup RGB đồng bộ từng dãy' },
-  { src: img3, alt: 'Hành lang dãy máy NTN Gaming', caption: 'Lối đi rộng rãi, thoải mái di chuyển' },
+  { src: img1, alt: 'Dàn máy hàng dài với màn hình cờ đỏ sao vàng'},
+  { src: img2, alt: 'Toàn cảnh khu vực chơi game'},
+  { src: img4, alt: 'Góc phòng máy với ánh đèn tím'},
+  { src: img3, alt: 'Hành lang dãy máy NTN Gaming'},
 ];
 
 const FEATURES = [
@@ -53,15 +54,6 @@ export function Gallery() {
             </div>
           ))}
         </div>
-
-        <div className={styles.mapHeading}>
-          <span className={styles.eyebrow}>Sơ đồ mặt bằng</span>
-          <h3>Chọn máy theo sơ đồ</h3>
-          <p className={styles.lead}>
-            Bấm vào từng máy để xem thông tin cấu hình và tình trạng còn trống — chuyển tầng bằng nút bên trên.
-          </p>
-        </div>
-        <FloorPlan />
       </div>
     </section>
   );

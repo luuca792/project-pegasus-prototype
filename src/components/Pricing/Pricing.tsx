@@ -1,20 +1,24 @@
 import { Check, Star } from 'lucide-react';
 import styles from './Pricing.module.css';
 
-const PLANS = [
+const ROOMS = [
   {
-    name: 'Giờ lẻ',
-    price: '8.000đ',
-    unit: '/ giờ',
+    name: 'Phòng thường',
     highlight: false,
-    perks: ['Cấu hình mạnh chuẩn esports', 'Mạng cáp quang tốc độ cao', 'Ghế gaming êm ái'],
+    tiers: [
+      { label: 'Khách', price: '10.000đ' },
+      { label: 'Hội viên', price: '7.000đ' },
+    ],
+    perks: ['Cấu hình tiêu chuẩn', 'Màn hình phổ thông', 'Mạng cáp quang tốc độ cao'],
   },
   {
-    name: 'Hội viên',
-    price: '6.000đ',
-    unit: '/ giờ',
+    name: 'Phòng VIP',
     highlight: true,
-    perks: ['Đăng ký thẻ hội viên miễn phí', 'Tặng thêm % giờ chơi khi nạp thẻ', 'Ưu tiên giữ chỗ cuối tuần', 'Tích điểm đổi quà'],
+    tiers: [
+      { label: 'Khách', price: '13.000đ' },
+      { label: 'Hội viên', price: '10.000đ' },
+    ],
+    perks: ['Cấu hình mạnh', 'Màn hình cao cấp', 'Mạng cáp quang tốc độ cao'],
   },
 ];
 
@@ -29,30 +33,34 @@ export function Pricing() {
         </div>
 
         <div className={styles.grid}>
-          {PLANS.map((plan) => (
-            <div key={plan.name} className={`${styles.card} ${plan.highlight ? styles.highlight : ''}`}>
-              {plan.highlight && (
+          {ROOMS.map((room) => (
+            <div key={room.name} className={`${styles.card} ${room.highlight ? styles.highlight : ''}`}>
+              {room.highlight && (
                 <span className={styles.badge}>
                   <Star size={12} fill="currentColor" />
                   Phổ biến nhất
                 </span>
               )}
-              <h3 className={styles.planName}>{plan.name}</h3>
-              <div className={styles.priceRow}>
-                <span className={styles.price}>{plan.price}</span>
-                <span className={styles.unit}>{plan.unit}</span>
+              <h3 className={styles.planName}>{room.name}</h3>
+              <div className={styles.tiers}>
+                {room.tiers.map((tier) => (
+                  <div key={tier.label} className={styles.tierRow}>
+                    <span className={styles.tierLabel}>{tier.label}</span>
+                    <span className={styles.priceRow}>
+                      <span className={styles.price}>{tier.price}</span>
+                      <span className={styles.unit}>/ giờ</span>
+                    </span>
+                  </div>
+                ))}
               </div>
               <ul className={styles.perks}>
-                {plan.perks.map((perk) => (
+                {room.perks.map((perk) => (
                   <li key={perk}>
                     <Check size={16} className={styles.checkIcon} />
                     {perk}
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className={plan.highlight ? styles.ctaPrimary : styles.ctaSecondary}>
-                Chọn gói này
-              </a>
             </div>
           ))}
         </div>

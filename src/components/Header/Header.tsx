@@ -51,7 +51,7 @@ export function Header() {
             <span>Trà Vinh</span>
           </a>
           <a href="#contact" className={styles.ctaButton}>
-            Đặt máy ngay
+            Liên hệ ngay
           </a>
         </div>
 
@@ -78,7 +78,7 @@ export function Header() {
             </a>
           ))}
           <a href="#contact" className={styles.mobileCta} onClick={() => setMenuOpen(false)}>
-            Đặt máy ngay
+            Liên hệ ngay
           </a>
         </nav>
       )}

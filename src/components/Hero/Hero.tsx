@@ -3,7 +3,7 @@ import heroImage from '../../assets/images/store-3.jpg';
 import styles from './Hero.module.css';
 
 const STATS = [
-  { value: '70+', label: 'Máy cấu hình cao' },
+  { value: '50+', label: 'Máy cấu hình cao' },
   { value: '7h–23h', label: 'Mở cửa mỗi ngày' },
   { value: '2K/144Hz', label: 'Màn hình tốc độ cao' },
 ];
@@ -22,14 +22,14 @@ export function Hero() {
           Chiến hết mình <span className={styles.headlineAccent}>tại NTN Gaming</span>
         </h1>
         <p className={styles.subtext}>
-          Dàn PC cấu hình khủng, ghế gaming êm ái, mạng cáp quang siêu tốc và không gian
-          chill hết cỡ. Ghé NTN Gaming để trải nghiệm phòng net được anh em game thủ Trà Vinh
+          Trải nghiệm dàn PC cấu hình khủng, ghế gaming êm ái, mạng cáp quang siêu tốc kèm với không gian
+          chill hết cỡ và dịch vụ ăn uống tiện nghi.  Ghé NTN Gaming, phòng net được anh em game thủ Trà Vinh
           tin chọn.
         </p>
 
         <div className={styles.ctaRow}>
           <a href="#contact" className={styles.primaryCta}>
-            Đặt chỗ ngay
+            Liên hệ ngay
             <ArrowRight size={18} />
           </a>
           <a href="#gallery" className={styles.secondaryCta}>

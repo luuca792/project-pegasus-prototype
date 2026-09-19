@@ -40,21 +40,10 @@ export function Footer() {
             <span>Mở cửa 7:00 – 23:00 mỗi ngày, kể cả lễ, Tết</span>
           </div>
         </div>
-
-        <div className={styles.mapCol}>
-          <h3 className={styles.colTitle}>Đặt chỗ nhanh</h3>
-          <p className={styles.mapText}>
-            Gọi hoặc nhắn Zalo để giữ máy trước, đặc biệt vào khung giờ cao điểm cuối tuần.
-          </p>
-          <a href="tel:0988585801" className={styles.callCta}>
-            <Phone size={16} />
-            Gọi ngay 0988 585 801
-          </a>
-        </div>
       </div>
 
       <div className={styles.bottomBar}>
-        <span>© 2026 NTN Gaming. Bản demo giao diện — dữ liệu minh họa.</span>
+        <span>© 2026 NTN Gaming.</span>
       </div>
     </footer>
   );
